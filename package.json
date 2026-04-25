@@ -1,0 +1,28 @@
+{
+  "name": "skill2mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CLI and library to parse SKILL.md files into MCP-ready tool definitions",
+  "license": "MIT OR Apache-2.0",
+  "type": "module",
+  "bin": {
+    "skill2mcp": "dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli/index.ts",
+    "parse": "tsx src/cli/index.ts parse",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "commander": "^14.0.1",
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.7.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
