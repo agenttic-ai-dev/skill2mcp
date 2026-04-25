@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Security report
-    url: https://github.com/OWNER/REPO/security/advisories/new
+    url: https://github.com/AgentticAI/skill2mcp/security/advisories/new
     about: Please report vulnerabilities privately.
   - name: Support
-    url: https://github.com/OWNER/REPO/discussions
+    url: https://github.com/AgentticAI/skill2mcp/discussions
     about: Ask usage questions in Discussions.
