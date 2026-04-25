@@ -31,4 +31,20 @@ describe("buildProject", () => {
     expect(toolsJson).toContain("docx-generator");
     expect(handlersIndex).toContain("docx-generator");
   });
+
+  it("fails in strict mode when parser or validator emits errors", async () => {
+    const tmp = await mkdtemp(path.join(os.tmpdir(), "skill2mcp-build-strict-"));
+    const ambiguousSkill = path.resolve("fixtures/skills/ambiguous-skill.md");
+
+    const result = await buildProject(ambiguousSkill, {
+      mode: "strict",
+      outDir: tmp,
+      transport: "both",
+    });
+
+    expect("error" in result).toBe(true);
+    if ("error" in result) {
+      expect(result.diagnostics.length).toBeGreaterThan(0);
+    }
+  });
 });

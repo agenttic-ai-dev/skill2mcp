@@ -43,11 +43,12 @@ program
   .requiredOption("--out <dir>", "Output directory for generated MCP package")
   .option("--mode <mode>", "Parser mode: strict | tolerant", "tolerant")
   .option("--transport <transport>", "Server transport: stdio | http | both", "both")
+  .option("--watch", "Watch input path and rebuild on changes", false)
   .option("--format <format>", "Output format", "json")
   .action(
     async (
       input: string,
-      options: { mode: string; out: string; transport: string; format: string },
+      options: { mode: string; out: string; transport: string; watch: boolean; format: string },
     ) => {
       const mode = options.mode === "strict" ? "strict" : "tolerant";
       const transport =
@@ -56,6 +57,7 @@ program
         mode,
         outDir: options.out,
         transport,
+        watch: options.watch,
         format: "json",
       });
     },
