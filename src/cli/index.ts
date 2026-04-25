@@ -6,6 +6,13 @@ import { runInspectCommand } from "./inspect.js";
 
 const program = new Command();
 
+function parseMode(value: string): "strict" | "tolerant" | "semantic" {
+  if (value === "strict" || value === "semantic") {
+    return value;
+  }
+  return "tolerant";
+}
+
 program
   .name("skill2mcp")
   .description("Parse SKILL markdown files into SkillDocument IR")
@@ -14,10 +21,10 @@ program
 program
   .command("parse")
   .argument("<input>", "Path to a SKILL markdown file or directory")
-  .option("--mode <mode>", "Parser mode: strict | tolerant", "tolerant")
+  .option("--mode <mode>", "Parser mode: strict | tolerant | semantic", "tolerant")
   .option("--format <format>", "Output format", "json")
   .action(async (input: string, options: { mode: string; format: string }) => {
-    const mode = options.mode === "strict" ? "strict" : "tolerant";
+    const mode = parseMode(options.mode);
     await runParseCommand(input, {
       mode,
       format: "json",
@@ -27,10 +34,10 @@ program
 program
   .command("inspect")
   .argument("<input>", "Path to a SKILL markdown file or directory")
-  .option("--mode <mode>", "Parser mode: strict | tolerant", "tolerant")
+  .option("--mode <mode>", "Parser mode: strict | tolerant | semantic", "tolerant")
   .option("--format <format>", "Output format", "json")
   .action(async (input: string, options: { mode: string; format: string }) => {
-    const mode = options.mode === "strict" ? "strict" : "tolerant";
+    const mode = parseMode(options.mode);
     await runInspectCommand(input, {
       mode,
       format: "json",
@@ -41,7 +48,7 @@ program
   .command("build")
   .argument("<input>", "Path to a SKILL markdown file or directory")
   .requiredOption("--out <dir>", "Output directory for generated MCP package")
-  .option("--mode <mode>", "Parser mode: strict | tolerant", "tolerant")
+  .option("--mode <mode>", "Parser mode: strict | tolerant | semantic", "tolerant")
   .option("--transport <transport>", "Server transport: stdio | http | both", "both")
   .option("--watch", "Watch input path and rebuild on changes", false)
   .option("--format <format>", "Output format", "json")
@@ -50,7 +57,7 @@ program
       input: string,
       options: { mode: string; out: string; transport: string; watch: boolean; format: string },
     ) => {
-      const mode = options.mode === "strict" ? "strict" : "tolerant";
+      const mode = parseMode(options.mode);
       const transport =
         options.transport === "stdio" || options.transport === "http" ? options.transport : "both";
       await runBuildCommand(input, {

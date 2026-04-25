@@ -1,5 +1,6 @@
 import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { parseInputPath } from "../src/parser/parse-input.js";
 import { loadSkillFiles } from "../src/parser/file-loader.js";
 import { buildSkillDocument } from "../src/parser/build-skill-document.js";
 
@@ -28,5 +29,16 @@ describe("buildSkillDocument", () => {
     const files = await loadSkillFiles(path.join(fixturesDir, "ambiguous-skill.md"));
 
     expect(() => buildSkillDocument(files[0], "strict")).toThrowError(/Strict parsing failed/);
+  });
+
+  it("semantic mode infers missing name and description", async () => {
+    const parsed = await parseInputPath(path.join(fixturesDir, "ambiguous-skill.md"), "semantic");
+
+    if ("error" in parsed) {
+      throw new Error(parsed.error);
+    }
+
+    expect(parsed.results[0].document.meta.name).toBe("ambiguous-skill");
+    expect(parsed.results[0].document.meta.description).toContain("Auto-generated description");
   });
 });

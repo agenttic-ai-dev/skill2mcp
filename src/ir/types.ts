@@ -1,4 +1,4 @@
-export type ParseMode = "strict" | "tolerant";
+export type ParseMode = "strict" | "tolerant" | "semantic";
 
 export interface SkillMeta {
   name: string;

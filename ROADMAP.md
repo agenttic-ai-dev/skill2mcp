@@ -73,6 +73,7 @@ Consolidar una experiencia CLI estable para uso diario en repositorios reales.
 Completar campos faltantes del IR mediante extracción semántica controlada cuando el parser determinístico no alcanza cobertura suficiente.
 
 ### Tareas
+- Definir estrategia de proveedor GenAI con preferencia de integración en OpenRouter.
 - Implementar `SemanticExtractor` activado solo bajo `--semantic`.
 - Limitar extracción a campos ausentes o ambiguos del IR.
 - Definir prompt estructurado y formato de respuesta JSON estricto.
