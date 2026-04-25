@@ -161,8 +161,24 @@ Output:
 ### `semantic`
 
 - Starts from tolerant parse
-- Applies deterministic fallback inference for missing metadata fields
+- Attempts semantic extraction through OpenRouter (when configured)
+- Applies deterministic fallback inference for unresolved fields
 - Keeps diagnostics trace (`SEMANTIC_*` codes)
+
+### OpenRouter configuration for `semantic`
+
+Environment variables:
+
+- `OPENROUTER_API_KEY`: enables remote semantic extraction
+- `OPENROUTER_MODEL` (optional): defaults to `anthropic/claude-3.5-sonnet`
+- `SKILL2MCP_CACHE_DIR` (optional): override cache directory
+- `OPENROUTER_HTTP_REFERER` (optional): forwarded as OpenRouter header
+- `OPENROUTER_X_TITLE` (optional): forwarded as OpenRouter header
+
+Cache behavior:
+
+- Semantic responses are cached by content hash in `.skill2mcp-cache/semantic-openrouter-cache.json`
+- If cache is present, semantic mode reuses cache and avoids extra remote calls
 
 ## Canonical `SKILL.md` format (recommended)
 
@@ -244,7 +260,7 @@ This repo includes:
 ## Known limitations
 
 - Parameter parsing currently assumes markdown table format in `## Parameters`
-- Semantic mode currently enriches metadata fields only
+- Semantic mode prioritizes missing metadata and may enrich missing parameters when extraction is available
 - Watch mode tracks current tree; if deeply nested folders are added later, restart watch for complete coverage
 
 ## Roadmap alignment
