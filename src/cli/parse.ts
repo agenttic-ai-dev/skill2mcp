@@ -1,6 +1,5 @@
-import { loadSkillFiles } from "../parser/file-loader.js";
-import { buildSkillDocument } from "../parser/build-skill-document.js";
-import type { ParseMode, ParseResult } from "../ir/types.js";
+import type { ParseMode } from "../ir/types.js";
+import { parseInputPath } from "../parser/parse-input.js";
 
 export interface ParseCommandOptions {
   mode: ParseMode;
@@ -8,30 +7,16 @@ export interface ParseCommandOptions {
 }
 
 export async function runParseCommand(inputPath: string, options: ParseCommandOptions): Promise<void> {
-  const rawFiles = await loadSkillFiles(inputPath);
-  const results: ParseResult[] = [];
-
-  for (const rawFile of rawFiles) {
-    try {
-      results.push(buildSkillDocument(rawFile, options.mode));
-    } catch (error) {
-      if (options.mode === "strict") {
-        const diagnostics = (error as Error & { diagnostics?: unknown }).diagnostics;
-        const payload = {
-          error: error instanceof Error ? error.message : String(error),
-          diagnostics: diagnostics ?? [],
-        };
-        process.stderr.write(`${JSON.stringify(payload, null, 2)}\n`);
-        process.exitCode = 1;
-        return;
-      }
-      throw error;
-    }
+  const parsed = await parseInputPath(inputPath, options.mode);
+  if ("error" in parsed) {
+    process.stderr.write(`${JSON.stringify(parsed, null, 2)}\n`);
+    process.exitCode = 1;
+    return;
   }
 
   const payload = {
     mode: options.mode,
-    results,
+    results: parsed.results,
   };
 
   process.stdout.write(`${JSON.stringify(payload, null, 2)}\n`);

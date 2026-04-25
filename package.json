@@ -12,6 +12,7 @@
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/cli/index.ts",
     "parse": "tsx src/cli/index.ts parse",
+    "inspect": "tsx src/cli/index.ts inspect",
     "test": "vitest run",
     "test:watch": "vitest"
   },

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 import { runParseCommand } from "./parse.js";
+import { runInspectCommand } from "./inspect.js";
 
 const program = new Command();
 
@@ -17,6 +18,19 @@ program
   .action(async (input: string, options: { mode: string; format: string }) => {
     const mode = options.mode === "strict" ? "strict" : "tolerant";
     await runParseCommand(input, {
+      mode,
+      format: "json",
+    });
+  });
+
+program
+  .command("inspect")
+  .argument("<input>", "Path to a SKILL markdown file or directory")
+  .option("--mode <mode>", "Parser mode: strict | tolerant", "tolerant")
+  .option("--format <format>", "Output format", "json")
+  .action(async (input: string, options: { mode: string; format: string }) => {
+    const mode = options.mode === "strict" ? "strict" : "tolerant";
+    await runInspectCommand(input, {
       mode,
       format: "json",
     });
