@@ -1,5 +1,7 @@
 # skill2mcp
 
+![skill2mcp header](./res/542adc53-6c14-48ed-83e5-0b4ccca899f2.png)
+
 `skill2mcp` is a TypeScript CLI/library that converts `SKILL.md` documents into MCP-ready tool definitions and can generate a minimal deployable MCP Server package from a single file or an entire skills directory.
 
 The generated server uses the official MCP TypeScript SDK (`@modelcontextprotocol/sdk`) and supports `stdio`, `http`, or `both` transports.
