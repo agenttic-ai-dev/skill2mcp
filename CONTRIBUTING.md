@@ -2,6 +2,15 @@
 
 Thanks for contributing to `skill2mcp`.
 
+## Collaboration documents
+
+- Governance: `GOVERNANCE.md`
+- Code of conduct: `CODE_OF_CONDUCT.md`
+- Security policy: `SECURITY.md`
+- Support channels: `SUPPORT.md`
+- PR template: `.github/pull_request_template.md`
+- Issue templates: `.github/ISSUE_TEMPLATE/`
+
 ## Development setup
 
 ```bash
@@ -44,3 +53,4 @@ npm test
 - Feature is covered by tests or fixtures
 - No unrelated files changed
 - CLI output contract remains stable or is documented as a breaking change
+- PR description is complete and follows the template

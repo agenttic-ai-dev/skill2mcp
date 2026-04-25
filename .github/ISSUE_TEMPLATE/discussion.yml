@@ -1,0 +1,25 @@
+name: Discussion
+description: Start a technical or product discussion
+labels: [discussion]
+body:
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      placeholder: Should semantic mode infer parameters by default?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Relevant background, constraints, goals
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question(s)
+      description: What decision or feedback is needed?
+    validations:
+      required: true

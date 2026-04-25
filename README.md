@@ -257,6 +257,13 @@ This repo includes:
 - `CONTRIBUTING.md`
 - `RELEASE_CHECKLIST.md`
 
+## Collaboration model
+
+- Governance and decision rules: `GOVERNANCE.md`
+- Code of conduct: `CODE_OF_CONDUCT.md`
+- Security reporting: `SECURITY.md`
+- Support channels: `SUPPORT.md`
+
 ## Known limitations
 
 - Parameter parsing currently assumes markdown table format in `## Parameters`
