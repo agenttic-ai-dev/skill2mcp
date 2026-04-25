@@ -13,6 +13,7 @@
     "dev": "tsx src/cli/index.ts",
     "parse": "tsx src/cli/index.ts parse",
     "inspect": "tsx src/cli/index.ts inspect",
+    "gen": "tsx src/cli/index.ts build",
     "test": "vitest run",
     "test:watch": "vitest"
   },

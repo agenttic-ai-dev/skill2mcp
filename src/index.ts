@@ -6,3 +6,5 @@ export * from "./transformer/types.js";
 export * from "./transformer/schema-builder.js";
 export * from "./transformer/tool-mapper.js";
 export * from "./transformer/tool-validator.js";
+export * from "./generator/types.js";
+export * from "./generator/build-project.js";

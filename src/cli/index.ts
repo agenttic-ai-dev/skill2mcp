@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import { runBuildCommand } from "./build.js";
 import { runParseCommand } from "./parse.js";
 import { runInspectCommand } from "./inspect.js";
 
@@ -35,5 +36,29 @@ program
       format: "json",
     });
   });
+
+program
+  .command("build")
+  .argument("<input>", "Path to a SKILL markdown file or directory")
+  .requiredOption("--out <dir>", "Output directory for generated MCP package")
+  .option("--mode <mode>", "Parser mode: strict | tolerant", "tolerant")
+  .option("--transport <transport>", "Server transport: stdio | http | both", "both")
+  .option("--format <format>", "Output format", "json")
+  .action(
+    async (
+      input: string,
+      options: { mode: string; out: string; transport: string; format: string },
+    ) => {
+      const mode = options.mode === "strict" ? "strict" : "tolerant";
+      const transport =
+        options.transport === "stdio" || options.transport === "http" ? options.transport : "both";
+      await runBuildCommand(input, {
+        mode,
+        outDir: options.out,
+        transport,
+        format: "json",
+      });
+    },
+  );
 
 program.parseAsync(process.argv);
